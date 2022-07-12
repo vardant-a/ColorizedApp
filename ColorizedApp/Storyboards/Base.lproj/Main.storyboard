@@ -12,7 +12,7 @@
         <!--Сreate-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ColorizedApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ColorViewController" customModule="ColorizedApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,13 +206,13 @@
                         <barButtonItem key="rightBarButtonItem" title="Save" id="ai8-eW-KgG"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="blueLabels" destination="0dU-wj-Rut" id="0Zu-Dw-T9U"/>
+                        <outlet property="blueLabel" destination="0dU-wj-Rut" id="0Zu-Dw-T9U"/>
                         <outlet property="blueSlider" destination="gsN-KU-ufQ" id="1Ot-vk-OK2"/>
                         <outlet property="blueTextField" destination="Tzr-FH-Y5h" id="Zja-yW-NXK"/>
-                        <outlet property="greenLabels" destination="w7i-tU-l9K" id="TaV-L1-Gmu"/>
+                        <outlet property="greenLabel" destination="w7i-tU-l9K" id="TaV-L1-Gmu"/>
                         <outlet property="greenSlider" destination="42J-bg-iS8" id="KB1-Px-9mF"/>
                         <outlet property="greenTextField" destination="Zy5-Dl-7Iu" id="puV-Do-KiZ"/>
-                        <outlet property="redLabels" destination="yd5-Io-oo0" id="eIq-6Q-N1z"/>
+                        <outlet property="redLabel" destination="yd5-Io-oo0" id="eIq-6Q-N1z"/>
                         <outlet property="redSlider" destination="XiZ-Po-16h" id="izc-yv-WaP"/>
                         <outlet property="redTextField" destination="o7q-aq-RON" id="uaO-FG-tuZ"/>
                         <outlet property="rgbColorView" destination="1pY-70-1t8" id="Wzv-1U-2El"/>

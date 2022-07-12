@@ -13,32 +13,40 @@ class SettingColorViewViewController: UIViewController {
     
     @IBOutlet var rgbColorView: UIView!
 
-    @IBOutlet var redLabels: UILabel!
+    @IBOutlet var redLabel: UILabel!
     @IBOutlet var redSlider: UISlider!
     @IBOutlet var redTextField: UITextField!
     
-    @IBOutlet var greenLabels: UILabel!
+    @IBOutlet var greenLabel: UILabel!
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var greenTextField: UITextField!
     
-    @IBOutlet var blueLabels: UILabel!
+    @IBOutlet var blueLabel: UILabel!
     @IBOutlet var blueSlider: UISlider!
     @IBOutlet var blueTextField: UITextField!
     
-    var color: String!
+    var color: UIColor!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        rgbColorView.backgroundColor = color
+        
+        
     }
     
     @IBAction func setColorComponent(_ sender: UISlider) {
         setColorView()
-        redLabels.text = String(format: "%.2f", redSlider.value)
-        greenLabels.text = String(format: "%.2f", greenSlider.value)
-        blueLabels.text = String(format: "%.2f", blueSlider.value)
+        
+        switch sender {
+        case redSlider:
+            redLabel.text = string(from: redSlider)
+        case greenSlider:
+            greenLabel.text = string(from: greenSlider)
+        default:
+            blueLabel.text = string(from: blueSlider)
+        }
     }
-    
-
 }
 
 // MARK: -
@@ -51,5 +59,9 @@ extension SettingColorViewViewController {
             green: CGFloat(greenSlider.value),
             blue: CGFloat(blueSlider.value),
             alpha: 1)
+    }
+    
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
 }

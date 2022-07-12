@@ -9,16 +9,21 @@ import UIKit
 
 class ColorViewController: UIViewController {
     
-    var colorView = ""
+    var color = UIColor(
+        red: CGFloat(1.0),
+        green: CGFloat(1.0),
+        blue: CGFloat(1.0),
+        alpha: 1
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        view.backgroundColor = color
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let navigationVC = segue.destination as? UINavigationController else { return }
         guard let settingVC = navigationVC as? SettingColorViewViewController else { return }
-        settingVC.color = colorView
+        settingVC.color = color
     }
 }
