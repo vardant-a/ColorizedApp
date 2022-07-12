@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol UITextFieldDelegate {
+    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//    }
+}
+
 class SettingColorViewViewController: UIViewController {
     
     // MARK: IB outlets
@@ -25,15 +31,26 @@ class SettingColorViewViewController: UIViewController {
     @IBOutlet var blueSlider: UISlider!
     @IBOutlet var blueTextField: UITextField!
     
+    // MARK: - Public properties
+    
     var color: UIColor!
+    var delegate: SettingViewControllerDelegate!
+    
+    // MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        rgbColorView.backgroundColor = color
-        
+    
+        defaultSettingColor()
         
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super .touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+
+    // MARK: - IB Actions
     
     @IBAction func setColorComponent(_ sender: UISlider) {
         setColorView()
@@ -41,15 +58,27 @@ class SettingColorViewViewController: UIViewController {
         switch sender {
         case redSlider:
             redLabel.text = string(from: redSlider)
+            redTextField.text = string(from: redSlider)
         case greenSlider:
             greenLabel.text = string(from: greenSlider)
+            greenTextField.text = string(from: greenSlider)
         default:
             blueLabel.text = string(from: blueSlider)
+            blueTextField.text = string(from: blueSlider)
         }
+    }
+
+    @IBAction func cancelButtonTapped() {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func saveButtonTapped() {
+//        delegate.
+        dismiss(animated: true)
     }
 }
 
-// MARK: -
+// MARK: - Private Methods
 
 extension SettingColorViewViewController {
     
@@ -64,4 +93,16 @@ extension SettingColorViewViewController {
     private func string(from slider: UISlider) -> String {
         String(format: "%.2f", slider.value)
     }
+    
+    private func defaultSettingColor() {
+        rgbColorView.backgroundColor = color
+        
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension SettingColorViewViewController: UITextFieldDelegate {
+    
+    
 }
