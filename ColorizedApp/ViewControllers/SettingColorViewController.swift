@@ -152,7 +152,7 @@ extension SettingColorViewController {
     }
     
     private func keyboardToolbar() {
-        
+        // Реализация данного кода под чистую взято из гугла.
         let toolbar = UIToolbar()
         let emptySpace = UIBarButtonItem(
             barButtonSystemItem: .flexibleSpace,
