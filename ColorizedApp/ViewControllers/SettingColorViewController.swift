@@ -7,9 +7,6 @@
 
 import UIKit
 
-protocol UITextFieldDelegate {
-}
-
 class SettingColorViewController: UIViewController {
     
     // MARK: IB outlets
@@ -37,10 +34,15 @@ class SettingColorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         rgbColorView.backgroundColor = colorVC
         
         getDefaultRGBcolor()
+        keyboardToolbar()
+        
+        redTextField.delegate = self
+        greenTextField.delegate = self
+        blueTextField.delegate = self
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -71,6 +73,28 @@ class SettingColorViewController: UIViewController {
         colorVC = rgbColorView.backgroundColor
         delegate?.сolorUpdateView(from: colorVC)
         dismiss(animated: true)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension SettingColorViewController : UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let dateTextField = textField.text else { return }
+        guard let valueTF = Float(dateTextField) else { return }
+        
+        switch textField {
+        case redTextField:
+            redSlider.value = valueTF
+        case greenTextField:
+            greenSlider.value = valueTF
+        default:
+            blueSlider.value = valueTF
+        }
+        
+        setColorView()
+        updateDateColors(to: redLabel, greenLabel, blueLabel)
     }
 }
 
@@ -125,5 +149,33 @@ extension SettingColorViewController {
             blue: CGFloat(blueSlider.value),
             alpha: CGFloat(1)
         )
+    }
+    
+    private func keyboardToolbar() {
+        
+        let toolbar = UIToolbar()
+        let emptySpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: self,
+            action: nil
+        )
+        let buttonDone = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(butDonePressed)
+        )
+        
+        toolbar.barStyle = .default
+        toolbar.items = [emptySpace, buttonDone]
+        toolbar.sizeToFit()
+        
+        redTextField.inputAccessoryView = toolbar
+        greenTextField.inputAccessoryView = toolbar
+        blueTextField.inputAccessoryView = toolbar
+    }
+    
+    @objc private func butDonePressed() {
+        view.endEditing(true)
     }
 }
