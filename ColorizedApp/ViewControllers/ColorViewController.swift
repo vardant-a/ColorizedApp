@@ -8,29 +8,16 @@
 import UIKit
 
 protocol SettingViewControllerDelegate {
-//    func setColorView(red: Float, green: Float, blue: Float) {
-//
-//    }
+    func сolorUpdateView(from color: UIColor)
 }
 
 class ColorViewController: UIViewController {
     
-    var color = UIColor(
-        red: CGFloat(1),
-        green: CGFloat(1),
-        blue: CGFloat(1),
-        alpha: 1
-    )
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = color
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let navigationVC = segue.destination as? UINavigationController else { return }
-        guard let settingVC = navigationVC as? SettingColorViewViewController else { return }
-        settingVC.color = color
+        guard let settingVC = navigationVC.topViewController as? SettingColorViewController else { return }
+        settingVC.colorVC = view.backgroundColor
         settingVC.delegate = self
     }
 }
@@ -38,5 +25,7 @@ class ColorViewController: UIViewController {
 // MARK: - SettingViewControllerDelegate
 
 extension ColorViewController: SettingViewControllerDelegate {
-        
+    func сolorUpdateView(from color: UIColor) {
+        view.backgroundColor = color
+    }
 }
