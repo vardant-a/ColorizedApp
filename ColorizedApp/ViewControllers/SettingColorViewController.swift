@@ -9,8 +9,7 @@ import UIKit
 
 class SettingColorViewController: UIViewController {
     
-    // MARK: IB outlets
-    
+    // MARK: IB Outlets
     @IBOutlet var rgbColorView: UIView!
 
     @IBOutlet var redLabel: UILabel!
@@ -25,16 +24,14 @@ class SettingColorViewController: UIViewController {
     @IBOutlet var greenTextField: UITextField!
     @IBOutlet var blueTextField: UITextField!
     
-    // MARK: - Public properties
-    
-    var colorVC: UIColor!
+    // MARK: - Public Properties
+    var colorView: UIColor!
     var delegate: SettingViewControllerDelegate!
     
     // MARK: - Override methods
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        rgbColorView.backgroundColor = colorVC
+        rgbColorView.backgroundColor = colorView
         
         getDefaultRGBcolor()
         keyboardToolbar()
@@ -51,7 +48,6 @@ class SettingColorViewController: UIViewController {
     }
 
     // MARK: - IB Actions
-    
     @IBAction func generateColor(_ sender: UISlider) {
         switch sender {
         case redSlider:
@@ -70,14 +66,13 @@ class SettingColorViewController: UIViewController {
     }
     
     @IBAction func saveButtonTapped() {
-        colorVC = rgbColorView.backgroundColor
-        delegate?.сolorUpdateView(from: colorVC)
+        colorView = rgbColorView.backgroundColor
+        delegate?.сolorUpdateView(from: colorView)
         dismiss(animated: true)
     }
 }
 
 // MARK: - UITextFieldDelegate
-
 extension SettingColorViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -86,11 +81,11 @@ extension SettingColorViewController : UITextFieldDelegate {
         
         switch textField {
         case redTextField:
-            redSlider.value = valueTF
+            redSlider.setValue(valueTF, animated: true)
         case greenTextField:
-            greenSlider.value = valueTF
+            greenSlider.setValue(valueTF, animated: true)
         default:
-            blueSlider.value = valueTF
+            blueSlider.setValue(valueTF, animated: true)
         }
         
         setColorView()
@@ -99,25 +94,26 @@ extension SettingColorViewController : UITextFieldDelegate {
 }
 
 // MARK: - Private Methods
-
 extension SettingColorViewController {
     
     private func getDefaultRGBcolor() {
-        var red: CGFloat = 1
-        var green: CGFloat = 1
-        var blue: CGFloat = 1
-        var alpha: CGFloat = 1
         
-        colorVC.getRed(
-            &red,
-            green: &green,
-            blue: &blue,
-            alpha: &alpha
-        )
-        
-        redSlider.value = Float(red)
-        greenSlider.value = Float(green)
-        blueSlider.value = Float(blue)
+        let CiColor = CIColor(color: colorView)
+//        var red: CGFloat = 1
+//        var green: CGFloat = 1
+//        var blue: CGFloat = 1
+//        var alpha: CGFloat = 1
+//
+//        colorView.getRed(
+//            &red,
+//            green: &green,
+//            blue: &blue,
+//            alpha: &alpha
+//        )
+//
+        redSlider.value = Float(CiColor.red)
+        greenSlider.value = Float(CiColor.green)
+        blueSlider.value = Float(CiColor.blue)
         
         updateDateColors(to: redLabel, greenLabel, blueLabel)
     }
